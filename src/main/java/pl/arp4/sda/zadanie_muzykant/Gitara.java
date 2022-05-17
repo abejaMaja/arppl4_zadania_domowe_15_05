@@ -1,10 +1,9 @@
 package pl.arp4.sda.zadanie_muzykant;
 
-public class Gitara extends Muzykant implements Instrument {
+public class Gitara  implements Instrument {
 
 
-    public Gitara(String imie) {
-        super(imie);
+    public Gitara() {
     }
 
     @Override

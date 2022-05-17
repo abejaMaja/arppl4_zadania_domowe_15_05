@@ -18,86 +18,45 @@ public class Main {
         String komenda = " ";
 
         do {
-
-
-            try {
-                do {
-
-                    System.out.println("Co chcesz zrobić sing/instrument ");
-                    String wybor = scanner.next();
-                    System.out.println("wybrałej że chcesz " + wybor);
-                    if (wybor.equals("sing")) {
-                        muzykant.zagraj(tekst);
-                    } else {
-                        System.out.println("Podaj rodzaj instrumentu " + (Arrays.toString(InstrumentTypes.values())) + ":");
-                        String instrumentTypesString = scanner.next();
-                        try {
-
-                            instrument = InstrumentTypes.valueOf(instrumentTypesString.toUpperCase());
-                        } catch (IllegalArgumentException iae) {
-                            System.out.println("Nie ma takiego instrumentu");
-                        }
-
-                    }
-
-
-                    String instrumentString = instrument.toString();
-
-                    switch (instrumentString) {
-                        case "GUITAR":
-                            Gitara gitara = new Gitara(imie);
-                            muzykant.setInstrument(instrument);
-                            System.out.println("Przełączam na " + muzykant.getInstrument());
-                            gitara.graj(tekst);
-                            break;
-                        case "DRUM":
-                            Beben beben = new Beben(imie);
-                            muzykant.setInstrument(instrument);
-                            System.out.println("Przełączam na " + muzykant.getInstrument());
-                            beben.graj(tekst);
-                            break;
-                        case "PLATES":
-                            Talerze talerze = new Talerze(imie);
-                            muzykant.setInstrument(instrument);
-                            System.out.println("Przełączam na " + muzykant.getInstrument());
-                            talerze.graj(tekst);
-                            break;
-                        case "VOICE":
-                            Glos glos = new Glos(imie);
-                            muzykant.setInstrument(instrument);
-                            System.out.println("Przełączam na " + muzykant.getInstrument());
-                            glos.graj(tekst);
-                            break;
-                        case "FLUTE":
-                            Flet flet = new Flet(imie);
-                            muzykant.setInstrument(instrument);
-                            System.out.println("Przełączam na " + muzykant.getInstrument());
-                            flet.graj(tekst);
-                            break;
-
-                    }
-
-
-                    muzykant.setInstrument(instrument);
-                    System.out.println("W tle słychać " + muzykant.getInstrument());
-
-
-                } while (instrument == null);
-
-
-            } catch (NullPointerException enp) {
-                continue;
-            }
-
-            System.out.println("Kończymy?, dla potwierdzanie wpisz <koniec>");
+            System.out.println("Co chcesz zrobić sing/instrument/koniec ");
             komenda = scanner.next();
+            System.out.println("wybrałej że chcesz " + komenda);
+            if (komenda.equals("sing")) {
+                muzykant.zagraj(tekst);
+            } else if (komenda.equals("koniec")) {
+                break;
+            } else {
+                System.out.println("Podaj rodzaj instrumentu " + (Arrays.toString(InstrumentTypes.values())) + ":");
+                String instrumentTypesString = scanner.next();
+                try {
 
-
+                    instrument = InstrumentTypes.valueOf(instrumentTypesString.toUpperCase());
+                    switch (instrument) {
+                        case GUITAR:
+                            Gitara gitara = new Gitara();
+                            muzykant.setInstrument(new Gitara());
+                            break;
+                        case DRUM:
+                            Beben beben = new Beben(imie);
+                            muzykant.setInstrument(beben);
+                            break;
+                        case PLATES:
+                            Talerze talerze = new Talerze(imie);
+                            muzykant.setInstrument(talerze);
+                            break;
+                        case VOICE:
+                            muzykant.setInstrument(new Glos());
+                            break;
+                        case FLUTE:
+                            Flet flet = new Flet(imie);
+                            muzykant.setInstrument(flet);
+                            break;
+                    }
+                } catch (IllegalArgumentException iae) {
+                    System.out.println("Nie ma takiego instrumentu");
+                }
+            }
         } while (!komenda.equals("koniec"));
-
-
     }
-
-
 }
 
